@@ -1,0 +1,4 @@
+openai
+langchain==0.0.99rc0
+pypdf
+faiss-cpu
