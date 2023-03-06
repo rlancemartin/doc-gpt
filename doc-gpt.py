@@ -34,8 +34,7 @@ def create_ix(splits):
     """
     st.info("`Building index ...`")
     embeddings = OpenAIEmbeddings()
-    docsearch = FAISS.from_texts(splits,embeddings)
-    return docsearch
+    return FAISS.from_texts(splits,embeddings)
 
 # Auth
 st.sidebar.image("Img/reading.jpg")
@@ -58,7 +57,7 @@ if uploaded_file_pdf and api_key:
     chain = VectorDBQA.from_chain_type(llm, chain_type="stuff", vectorstore=ix)
     query = st.text_input("`Please ask a question:` ","What is this document about?")
     try:
-        st.info("`%s`"%chain.run(query))
+        st.info(f"`{chain.run(query)}`")
     except openai.error.InvalidRequestError:
         # Limitation w/ ChatGPT: 4096 token context length
         # https://github.com/acheong08/ChatGPT/discussions/649
